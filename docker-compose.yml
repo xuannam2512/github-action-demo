@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  github-action-demo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - test-network
+
+networks:
+  test-network:
+    driver: bridge
