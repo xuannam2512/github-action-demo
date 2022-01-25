@@ -62,10 +62,7 @@ jobs:
         run: docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/github-action-demo:latest
 
       - name: Stop and remove docker container
-        run: |
-          docker ps -q --filter "name=${{ secrets.DOCKER_HUB_USERNAME }}/github-action-demo" | grep -q . \ 
-          && docker stop ${{ secrets.DOCKER_HUB_USERNAME }}/github-action-demo \
-          && docker rm -fv ${{ secrets.DOCKER_HUB_USERNAME }}/github-action-demo
+        run: docker ps -q --filter "name=github-action-demo" | grep -q . && docker stop github-action-demo && docker rm -fv github-action-demo
 
       - name: Start container
         run: |
