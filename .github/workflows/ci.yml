@@ -59,7 +59,7 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
       - name: Pull docker image
-        run: docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/github-action-demo:latest
+        run: docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/github-action-demo:latest && docker rmi $(docker images --filter "dangling=true" -q --no-trunc)
 
       - name: Stop and remove docker container
         run: docker stop github-action-demo-container && docker rm -fv github-action-demo-container
