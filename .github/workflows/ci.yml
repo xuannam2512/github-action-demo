@@ -35,6 +35,7 @@ jobs:
 #        file: ./Dockerfile
 #        push: false
     - name: build docker image
+      if: ${{ github.event_name == 'push'}}
       run: docker-compose build
 
   deploy:
