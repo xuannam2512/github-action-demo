@@ -4,7 +4,7 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "test")
+@RequestMapping(value = "/api/test")
 public class TestController {
 
   @GetMapping
