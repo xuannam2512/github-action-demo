@@ -61,12 +61,9 @@ jobs:
       - name: Pull docker image
         run: docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/github-action-demo:latest
 
-#      - name: Stop and remove docker container
-#        run: docker stop github-action-demo-container && docker rm -fv github-action-demo-container
+      - name: Stop and remove docker container
+        run: docker stop github-action-demo-container && docker rm -fv github-action-demo-container
 
       - name: Start container
         run: |
-          docker run -d \
-          --publish 8080:8080 \
-          --name github-action-demo-container \
-          ${{ secrets.DOCKER_HUB_USERNAME }}/github-action-demo:latest
+          docker run -d --publish 8080:8080 --name github-action-demo-container ${{ secrets.DOCKER_HUB_USERNAME }}/github-action-demo:latest
