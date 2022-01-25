@@ -11,7 +11,6 @@ on:
 
 jobs:
   buildx:
-
     runs-on: [self-hosted, linux, x64, dev]
 
     steps:
@@ -38,8 +37,14 @@ jobs:
     - name: build docker image
       run: docker-compose build
 
-    - name: Stop container
-      run: docker-compose down
+  deploy:
+    runs-on: [self-hosted, linux, x64, dev]
 
-    - name: Run docker image
-      run: docker-compose up -d
+    steps:
+      - name: Stop container
+        if: ${{ github.event_name == 'push'}}
+        run: docker-compose down
+
+      - name: Run docker image
+        if: ${{ github.event_name == 'push'}}
+        run: docker-compose up -d
