@@ -46,6 +46,8 @@ jobs:
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/github-action-demo:latest
 
   deploy:
+    needs:
+      - build
     runs-on: [self-hosted, linux, x64, dev]
 
     steps:
