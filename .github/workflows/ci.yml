@@ -46,13 +46,24 @@ jobs:
         tags: ${{ secrets.DOCKER_HUB_USERNAME }}/github-action-demo:latest
 
   deploy:
+    if: ${{ github.event_name == 'push'}}
+    needs:
+      - build
     runs-on: [self-hosted, linux, x64, dev]
 
     steps:
-      - name: Stop container
-        if: ${{ github.event_name == 'push'}}
-        run: docker-compose down
+      - name: Pull docker image
+        run: docker pull ${{ secrets.DOCKER_HUB_USERNAME }}/github-action-demo:latest
 
-      - name: Run docker image
-        if: ${{ github.event_name == 'push'}}
-        run: docker-compose up -d
+      - name: Stop docker container
+        run: docker stop ${{ secrets.DOCKER_HUB_USERNAME }}/github-action-demo
+
+      - name: Remove docker container
+        run: docker rm ${{ secrets.DOCKER_HUB_USERNAME }}/github-action-demo
+
+      - name: Start container
+        run: |
+          docker run -d \
+          --publish 8080:8080 \
+          --name github-action-demo-container \
+          ${{ secrets.DOCKER_HUB_USERNAME }}/github-action-demo:latest
