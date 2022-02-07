@@ -69,4 +69,4 @@ jobs:
 
       - name: Start container
         run: |
-          docker run -d --network=host --name github-action-demo-container ${{ secrets.DOCKER_HUB_USERNAME }}/github-action-demo:latest
+          docker run -d --restart=always --network=host --name github-action-demo-container ${{ secrets.DOCKER_HUB_USERNAME }}/github-action-demo:latest
