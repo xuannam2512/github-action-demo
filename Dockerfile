@@ -4,4 +4,4 @@ VOLUME /tmp
 
 COPY target/*.jar test.jar
 
-ENTRYPOINT ["java", "-jar","/test.jar"]
+ENTRYPOINT ["java", "-jar", "-Dspring.profiles.active=dev", "/test.jar"]
